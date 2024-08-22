@@ -1,26 +1,30 @@
 #include <stdio.h>
 
-int rescount(int n){
-    if(n == 0){
+int countNumbersWithUniqueDigits(int n) {
+    if (n == 0) {
         return 1;
     }
     
-    int count = 10;
-    int available = 9;
+    int result = 10;  // For n = 1, we have 10 possible values (0-9)
+    int uniqueDigits = 9;
+    int availableNumber = 9;
     
-    for(int i = 1 ; i < n ; i++){
-        count += available*(10-i);
-        available--;
+    for (int i = 2; i <= n && availableNumber > 0; i++) {
+        uniqueDigits *= availableNumber;
+        result += uniqueDigits;
+        availableNumber--;
     }
     
-    return count;
+    return result;
 }
 
-int main(){
-    int n ;
-    printf("Enter the number ");
-    scanf("%d",&n);
-    
-    int result = rescount(n);
-    printf("%d",result);
+int main() {
+    int n;
+
+    // Test Cases
+    for (n = 0; n <= 8; n++) {
+        printf("n = %d, Output: %d\n", n, countNumbersWithUniqueDigits(n));
+    }
+
+    return 0;
 }
